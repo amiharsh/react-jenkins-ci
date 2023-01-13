@@ -8,8 +8,6 @@ pipeline {
     stages {
         stage('Build & Push') {
             steps {
-                sh 'git submodule init'
-                sh 'git submodule update'
                 sh "docker build -t amiharsh/react-test:${tag} ."
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_PASS')]) {
                     sh "echo ${HUB_PASS} | docker login -u ${HUB_USER} --password-stdin"
